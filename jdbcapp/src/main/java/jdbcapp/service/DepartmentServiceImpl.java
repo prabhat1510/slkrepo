@@ -23,7 +23,7 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return null;
 	}
 
-	public String deleteDepartment(Integer empId) {
+	public String deleteDepartment(Integer deptNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
