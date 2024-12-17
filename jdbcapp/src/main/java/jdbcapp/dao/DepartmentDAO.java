@@ -16,4 +16,5 @@ public interface DepartmentDAO {
 	public String deleteDepartment(Integer deptNo);
 	//Retrieve all
 	public List<Department> retrieveAllDepartment();
+	public void useOfCallabale();
 }

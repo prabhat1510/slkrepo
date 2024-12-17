@@ -1,5 +1,6 @@
 package jdbcapp.dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import jdbcapp.model.Department;
 import jdbcapp.utility.DBConnectionUtil;
@@ -110,4 +112,19 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		return listOfDepartment;
 	}
 
+	public void useOfCallabale() {
+		Connection conn = DBConnectionUtil.getDBConnection();
+		try {
+			CallableStatement cStmt = conn.prepareCall("{call getAllDepartment ()}");
+			ResultSet rs = cStmt.executeQuery();
+			while(rs.next()) {
+				System.out.println(rs.getInt(1));
+				System.out.println(rs.getString(2));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

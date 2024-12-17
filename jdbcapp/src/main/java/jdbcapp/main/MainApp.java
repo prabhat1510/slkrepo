@@ -2,6 +2,8 @@ package jdbcapp.main;
 
 import java.util.Scanner;
 
+import jdbcapp.dao.DepartmentDAO;
+import jdbcapp.dao.DepartmentDAOImpl;
 import jdbcapp.model.Department;
 import jdbcapp.service.DepartmentService;
 import jdbcapp.service.DepartmentServiceImpl;
@@ -16,7 +18,8 @@ public class MainApp {
 			System.out.println("3. Retrieve all department");
 			System.out.println("4. Update department");
 			System.out.println("5. Delete department");
-			System.out.println("6. Exit the application");
+			System.out.println("6. Use of callable");
+			System.out.println("7. Exit the application");
 			Scanner sc = new Scanner(System.in);
 			Integer choice = sc.nextInt();
 			switch (choice) {
@@ -29,15 +32,40 @@ public class MainApp {
 			case 3: // retrieve all department
 				retrieveAllDepartment();
 				break;
+			case 4:// Update department
+				updateDepartment();
+				break;
 			case 5: // delete department by id
 				deleteDepartmentById();
 				break;
-			case 6:
+			case 6: 
+					DepartmentDAO deptDAO = new DepartmentDAOImpl();
+					deptDAO.useOfCallabale();
+					break;
+			case 7:
 				System.exit(0);
 				break;
 
 			}
 		}
+
+	}
+
+	private static void updateDepartment() {
+		// Reading the user input
+		Scanner sc = new Scanner(System.in);
+		System.out.println("****Enter department number *****");
+		Integer deptNo = sc.nextInt();
+		System.out.println("****Enter department name *****");
+		String deptName = sc.next();
+		// Creating an object of Department class
+		Department dept = new Department();
+		dept.setDeptName(deptName);
+		dept.setDeptNo(deptNo);
+		// Making a call to service layer
+		DepartmentService deptService = new DepartmentServiceImpl();
+		Department updatedDept = deptService.updateDepartment(dept);
+		System.out.println(updatedDept);
 
 	}
 
