@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import jdbcapp.model.Department;
 import jdbcapp.utility.DBConnectionUtil;
@@ -79,6 +82,27 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}
 		return "Unable to department with dept number "+deptNo;
 		
+	}
+
+	public List<Department> retrieveAllDepartment() {
+		String selectAllSQL ="select * from department;";
+		Connection conn = DBConnectionUtil.getDBConnection();
+		List<Department> listOfDepartment = new ArrayList<Department>();
+		Department department;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(selectAllSQL);
+			while(rs.next()) {
+				department=new Department();
+				department.setDeptNo(rs.getInt(1));
+				department.setDeptName(rs.getString(2));
+				listOfDepartment.add(department);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listOfDepartment;
 	}
 
 }

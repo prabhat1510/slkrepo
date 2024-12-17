@@ -1,5 +1,7 @@
 package jdbcapp.dao;
 
+import java.util.List;
+
 import jdbcapp.model.Department;
 
 public interface DepartmentDAO {
@@ -12,5 +14,6 @@ public interface DepartmentDAO {
 	public Department updateDepartment(Department department);
 	//Delete
 	public String deleteDepartment(Integer deptNo);
-
+	//Retrieve all
+	public List<Department> retrieveAllDepartment();
 }

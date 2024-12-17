@@ -1,5 +1,7 @@
 package jdbcapp.service;
 
+import java.util.List;
+
 import jdbcapp.dao.DepartmentDAO;
 import jdbcapp.dao.DepartmentDAOImpl;
 import jdbcapp.model.Department;
@@ -26,6 +28,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	public String deleteDepartment(Integer deptNo) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<Department> retrieveAllDepartment() {
+		DepartmentDAO deptDAO = new DepartmentDAOImpl();
+		return deptDAO.retrieveAllDepartment();
 	}
 
 }
