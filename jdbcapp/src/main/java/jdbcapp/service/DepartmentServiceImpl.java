@@ -21,13 +21,15 @@ public class DepartmentServiceImpl implements DepartmentService {
 	}
 
 	public Department updateDepartment(Department department) {
-		// TODO Auto-generated method stub
-		return null;
+		DepartmentDAO deptDAO = new DepartmentDAOImpl();
+		Department dept  = deptDAO.updateDepartment(department);
+		return dept;
 	}
 
 	public String deleteDepartment(Integer deptNo) {
-		// TODO Auto-generated method stub
-		return null;
+		DepartmentDAO deptDAO = new DepartmentDAOImpl();
+		String msg = deptDAO.deleteDepartment(deptNo);
+		return msg;
 	}
 
 	public List<Department> retrieveAllDepartment() {

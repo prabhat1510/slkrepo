@@ -10,15 +10,17 @@ import java.util.List;
 
 import jdbcapp.model.Department;
 import jdbcapp.utility.DBConnectionUtil;
+import jdbcapp.utility.QueryMapper;
 
 public class DepartmentDAOImpl implements DepartmentDAO {
 
 	public Department addDepartment(Department department) {
-		String sqlInsert ="insert into department values(?,?);";
+		//String sqlInsert ="insert into department values(?,?);";
 		Connection conn = DBConnectionUtil.getDBConnection();
 		PreparedStatement pStmt;
 		try {
-			pStmt = conn.prepareStatement(sqlInsert);
+			//pStmt = conn.prepareStatement(sqlInsert);
+			pStmt = conn.prepareStatement(QueryMapper.INSERT_DEPARTMENT);
 			pStmt.setInt(1, department.getDeptNo());
 			pStmt.setString(2, department.getDeptName());
 			int row = pStmt.executeUpdate();
@@ -39,7 +41,8 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		Connection conn = DBConnectionUtil.getDBConnection();
 		
 		try {
-			PreparedStatement pStmt = conn.prepareStatement("select * from department where deptno=?");
+			//PreparedStatement pStmt = conn.prepareStatement("select * from department where deptno=?");
+			PreparedStatement pStmt = conn.prepareStatement(QueryMapper.GET_DEPARTMENT_BY_ID);
 			pStmt.setInt(1, deptNo);
 			ResultSet rs = pStmt.executeQuery();
 			while(rs.next()) {
@@ -66,13 +69,14 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	}
 
 	public String deleteDepartment(Integer deptNo) {
-		String sqlDelete ="delete from department where deptno=?;";
+		//String sqlDelete ="delete from department where deptno=?;";
 		Connection conn = DBConnectionUtil.getDBConnection();
 		PreparedStatement pStmt;
 		try {
-			pStmt=conn.prepareStatement(sqlDelete);
+			//pStmt=conn.prepareStatement(sqlDelete);
+			pStmt=conn.prepareStatement(QueryMapper.DELETE_DEPARTMENT_BY_ID);
 			pStmt.setInt(1, deptNo);
-			int row = pStmt.executeUpdate(sqlDelete);
+			int row = pStmt.executeUpdate();
 			if(row == 1) {
 				return "Department will dept number "+deptNo+" deleted successfully";
 			}
@@ -85,13 +89,14 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 	}
 
 	public List<Department> retrieveAllDepartment() {
-		String selectAllSQL ="select * from department;";
+		//String selectAllSQL ="select * from department;";
 		Connection conn = DBConnectionUtil.getDBConnection();
 		List<Department> listOfDepartment = new ArrayList<Department>();
 		Department department;
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(selectAllSQL);
+			//ResultSet rs = stmt.executeQuery(selectAllSQL);
+			ResultSet rs = stmt.executeQuery(QueryMapper.GET_ALL_DEPARTMENT);
 			while(rs.next()) {
 				department=new Department();
 				department.setDeptNo(rs.getInt(1));
