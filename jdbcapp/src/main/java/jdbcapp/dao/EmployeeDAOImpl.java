@@ -3,8 +3,11 @@ package jdbcapp.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
+import jdbcapp.model.Department;
 import jdbcapp.model.Employee;
 import jdbcapp.utility.DBConnectionUtil;
 import jdbcapp.utility.QueryMapper;
@@ -36,8 +39,35 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	}
 
 	public Employee getEmployee(Integer empId) {
-		// TODO Auto-generated method stub
-		return null;
+		Employee employee = null;
+		Connection conn = DBConnectionUtil.getDBConnection();
+		
+		try {
+			//PreparedStatement pStmt = conn.prepareStatement("select * from department where deptno=?");
+			PreparedStatement pStmt = conn.prepareStatement(QueryMapper.GET_EMPLOYEE_BY_ID);
+			pStmt.setInt(1, empId);
+			ResultSet rs = pStmt.executeQuery();
+			while(rs.next()) {
+				employee = new Employee();
+				employee.setEmpId(rs.getInt(1));
+				employee.setEmpName(rs.getString(2));
+				//TODO
+				employee.setSalary(rs.getDouble("salary"));
+				employee.setDateOfBirth(rs.getDate(3).toLocalDate());
+				
+				employee.setDepartment(new Department(rs.getInt(5),null));
+				
+			}
+			
+			pStmt.close();
+			rs.close();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return employee; 
 	}
 
 	public Employee updateEmployee(Employee employee) {

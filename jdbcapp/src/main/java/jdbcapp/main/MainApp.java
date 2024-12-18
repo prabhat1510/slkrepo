@@ -64,7 +64,14 @@ public class MainApp {
 	}
 
 	private static void getEmployeeById() {
-		// TODO Auto-generated method stub
+		// Reading the user input
+		Scanner sc = new Scanner(System.in);
+		System.out.println("****Enter employee id *****");
+		Integer empId = sc.nextInt();
+		// Making a call to service layer
+		EmployeeService empService = new EmployeeServiceImpl();
+		Employee emp = empService.getEmployee(empId);
+		System.out.println(emp);
 
 	}
 
@@ -87,16 +94,16 @@ public class MainApp {
 		Integer deptNo = sc.nextInt();
 		System.out.println("****Enter employee department name *****");
 		String deptName = sc.next();
-		
+
 		System.out.println(" Creating employee ...... ");
 		// Creating an object of Department class
 		Employee emp = new Employee();
 		emp.setEmpId(empId);
 		emp.setEmpName(empName);
 		emp.setSalary(salary);
-		
-		emp.setDateOfBirth(LocalDate.of(empYearOfBirth,empMonthOfBirth, empDayOfBirth));
-		emp.setDepartment(new Department(deptNo,deptName));
+
+		emp.setDateOfBirth(LocalDate.of(empYearOfBirth, empMonthOfBirth, empDayOfBirth));
+		emp.setDepartment(new Department(deptNo, deptName));
 		// Making a call to service layer
 		EmployeeService empService = new EmployeeServiceImpl();
 		Employee addedEmp = empService.addEmployee(emp);
