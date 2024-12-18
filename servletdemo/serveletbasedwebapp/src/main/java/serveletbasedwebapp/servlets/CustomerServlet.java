@@ -26,5 +26,20 @@ public class CustomerServlet extends HttpServlet{
 		dispatcher.forward(req, resp);
 	}
 	
-
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		CustomerService customerService = new CustomerServiceImpl();
+		String customerName = req.getParameter("customerName");
+		String customerId = req.getParameter("customerId");
+		
+		Customer cust = new Customer();
+		cust.setCustName(customerName);
+		cust.setCustId(Integer.parseInt(customerId));
+		
+		String message = customerService.addCustomer(cust);
+		
+		req.setAttribute("message",message);
+		
+		RequestDispatcher dispatcher =  req.getRequestDispatcher("customer.jsp");
+		dispatcher.forward(req, resp);
+}
 }

@@ -16,32 +16,17 @@ public class DBConnectionUtil {
 		Connection conn = null;
 
 		try {
-			// Create Properties class object. Properties class is present in java.util
-			// package
-			Properties properties = new Properties();
-			// File object for properties file
-			File file = new File("src/main/resources/application.properties");
-			FileInputStream fis = new FileInputStream(file);
-			// load all properties of the application.properties file
-			properties.load(fis);
-
-			// Create DB URL using properties
-			String url = "jdbc:" + properties.getProperty("db") + "://" + properties.getProperty("dbhostname") + ":"
-					+ properties.getProperty("dbport") + "/" + properties.getProperty("dbname");
-
+			String url = "jdbc:mysql:// localhost:3306/trainingdb";
+			Class.forName("com.mysql.jdbc.Driver"); 
 			// Create DB Connection Object
-			conn = DriverManager.getConnection(url, properties.getProperty("username"),
-					properties.getProperty("password"));
+			conn = DriverManager.getConnection(url,"root" ,"password");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return conn;
 	}
 

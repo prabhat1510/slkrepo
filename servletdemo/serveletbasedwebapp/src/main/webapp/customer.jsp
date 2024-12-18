@@ -11,17 +11,28 @@
 <body>
 	<p>Customer JSP</p>
 	<p>Add customer name</p>
-	 <form action="/servletbasedwebapp-0.0.1-SNAPSHOT/customer" method="post">
-        <label for="customerName">Customer Name:</label>
+	 <form action="/serveletbasedwebapp-0.0.1-SNAPSHOT/customer" method="post">
+        <label for="customerId">Customer Id:</label>
+        <input type="text" id="customerId" name="customerId" required><br>
+		<label for="customerName">Customer Name:</label>
         <input type="text" id="customerName" name="customerName" required><br>
-        
+	
         <input type="submit" value="Submit">
     </form>
     <p>Customer added successfully details are :-  </p>
 	<%
-		Customer customer = (Customer)request.getAttribute("customer");
-	%>
-    <%= customer%>
+		Customer customer = (Customer)request.getAttribute("customer");%>
+		<% if(customer != null){%>
+			<%= customer%>
+		<%}%>
+		<% String message = (String )request.getAttribute("message");%>
+		<% if(message != null){%>
+				<%= message%>
+		<%}%>
+		
+	
+    
+    
 	
 </body>
 </html>

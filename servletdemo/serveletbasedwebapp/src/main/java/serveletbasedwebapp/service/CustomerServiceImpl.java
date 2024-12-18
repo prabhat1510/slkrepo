@@ -1,17 +1,19 @@
 package serveletbasedwebapp.service;
 
+import serveletbasedwebapp.dao.CustomerDAO;
+import serveletbasedwebapp.dao.CustomerDAOImpl;
 import serveletbasedwebapp.model.Customer;
 
 public class CustomerServiceImpl implements CustomerService {
 
 	public String addCustomer(Customer customer) {
-		CustomerService service = new CustomerServiceImpl();
-		return service.addCustomer(customer);
+		CustomerDAO dao = new CustomerDAOImpl();
+		return dao.addCustomer(customer);
 	}
 
 	public Customer getCustomerById(Integer custId) {
-		CustomerService service = new CustomerServiceImpl();
-		return service.getCustomerById(custId);
+		CustomerDAO dao = new CustomerDAOImpl();
+		return dao.getCustomerById(custId);
 	}
 
 }
