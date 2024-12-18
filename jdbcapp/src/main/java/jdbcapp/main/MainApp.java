@@ -1,12 +1,16 @@
 package jdbcapp.main;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import jdbcapp.dao.DepartmentDAO;
 import jdbcapp.dao.DepartmentDAOImpl;
 import jdbcapp.model.Department;
+import jdbcapp.model.Employee;
 import jdbcapp.service.DepartmentService;
 import jdbcapp.service.DepartmentServiceImpl;
+import jdbcapp.service.EmployeeService;
+import jdbcapp.service.EmployeeServiceImpl;
 
 public class MainApp {
 
@@ -19,7 +23,9 @@ public class MainApp {
 			System.out.println("4. Update department");
 			System.out.println("5. Delete department");
 			System.out.println("6. Use of callable");
-			System.out.println("7. Exit the application");
+			System.out.println("7. Add Employee");
+			System.out.println("8. Get Employee By Id");
+			System.out.println("9. Exit the application");
 			Scanner sc = new Scanner(System.in);
 			Integer choice = sc.nextInt();
 			switch (choice) {
@@ -38,16 +44,63 @@ public class MainApp {
 			case 5: // delete department by id
 				deleteDepartmentById();
 				break;
-			case 6: 
-					DepartmentDAO deptDAO = new DepartmentDAOImpl();
-					deptDAO.useOfCallabale();
-					break;
-			case 7:
+			case 6:
+				DepartmentDAO deptDAO = new DepartmentDAOImpl();
+				deptDAO.useOfCallabale();
+				break;
+			case 7: // add employee
+				addNewEmployee();
+				break;
+			case 8: // get employee by id
+				getEmployeeById();
+				break;
+			case 9:
 				System.exit(0);
 				break;
 
 			}
 		}
+
+	}
+
+	private static void getEmployeeById() {
+		// TODO Auto-generated method stub
+
+	}
+
+	private static void addNewEmployee() {
+		// Reading the user input
+		Scanner sc = new Scanner(System.in);
+		System.out.println("****Enter employee id *****");
+		Integer empId = sc.nextInt();
+		System.out.println("****Enter employee name *****");
+		String empName = sc.next();
+		System.out.println("****Enter employee salary *****");
+		Double salary = sc.nextDouble();
+		System.out.println("****Enter employee year of birth *****");
+		Integer empYearOfBirth = sc.nextInt();
+		System.out.println("****Enter employee month of birth *****");
+		Integer empMonthOfBirth = sc.nextInt();
+		System.out.println("****Enter employee day of birth *****");
+		Integer empDayOfBirth = sc.nextInt();
+		System.out.println("****Enter employee department number *****");
+		Integer deptNo = sc.nextInt();
+		System.out.println("****Enter employee department name *****");
+		String deptName = sc.next();
+		
+		System.out.println(" Creating employee ...... ");
+		// Creating an object of Department class
+		Employee emp = new Employee();
+		emp.setEmpId(empId);
+		emp.setEmpName(empName);
+		emp.setSalary(salary);
+		
+		emp.setDateOfBirth(LocalDate.of(empYearOfBirth,empMonthOfBirth, empDayOfBirth));
+		emp.setDepartment(new Department(deptNo,deptName));
+		// Making a call to service layer
+		EmployeeService empService = new EmployeeServiceImpl();
+		Employee addedEmp = empService.addEmployee(emp);
+		System.out.println(addedEmp);
 
 	}
 
