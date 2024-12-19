@@ -33,6 +33,14 @@ public class Driver {
 		// Using address object/bean instance we are accessing the object method
 		System.out.println(otherAddress.getCity());
 		System.out.println(otherAddress.getAddressId());
+		
+		Address address1 = context.getBean("addressBean", Address.class);
+		Address address2 = context.getBean("addressBean", Address.class);
+		
+		System.out.println(address1.hashCode());
+		System.out.println(address2.hashCode());
+		
 	}
+	
 
 }
