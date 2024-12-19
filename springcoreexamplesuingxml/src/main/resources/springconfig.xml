@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       					http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="customer" class="springcoreexamplesuingxml.model.Customer">
+		<property name="name" value="Rohan Rajore"/>
+		<property name="custId" value="15"/>
+		<property name="address" ref="addressBean"/>
+		<property name="otherAddress" ref="otherAddressBean"/>
+	</bean>
+	<bean id="addressBean" class="springcoreexamplesuingxml.model.Address">
+		<property name="addressId" value="11111"/>
+		<property name="city" value="Chennai"/>
+	</bean>
+	<bean id="personalAddressBean" class="springcoreexamplesuingxml.model.Address">
+		<property name="addressId" value="111"/>
+		<property name="city" value="Mumbai"/>
+	</bean>
+	<bean id="professionalAddressBean" class="springcoreexamplesuingxml.model.Address">
+		<property name="addressId" value="11"/>
+		<property name="city" value="Pune"/>
+	</bean>
+	<bean id="otherAddressBean" class="springcoreexamplesuingxml.model.Address">
+		<property name="addressId" value="1"/>
+		<property name="city" value="Thimpu"/>
+	</bean>
+</beans>
