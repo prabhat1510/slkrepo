@@ -30,11 +30,13 @@ public class Driver {
 		Order order1 = context.getBean("order",Order.class);
 		System.out.println(order1);
 		System.out.println(order1.hashCode());
-		System.out.println("******************newOrder object is created ****************************");
+		
+		System.out.println("******************bean name newOrder object is created ****************************");
 		Order newOrder = context.getBean("newOrder",Order.class);
 		System.out.println(newOrder);
 		System.out.println(newOrder.hashCode());
-		System.out.println("******************newOrder a different object  is created i.e referred by newOrder1****************************");
+		System.out.println("****************** bean name  "
+				+ "newOrder a different object  is created i.e referred by newOrder1****************************");
 		Order newOrder1 = context.getBean("newOrder",Order.class);
 		System.out.println(newOrder1);
 		System.out.println(newOrder1.hashCode());
