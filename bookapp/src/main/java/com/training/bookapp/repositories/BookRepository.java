@@ -1,0 +1,29 @@
+package com.training.bookapp.repositories;
+
+import java.util.List;
+
+import com.training.bookapp.exceptions.BookNotFoundException;
+import com.training.bookapp.model.Book;
+
+public interface BookRepository {
+	// Create
+	public String createBook(Book book);
+
+	// Retrieve by primary key or by bookId
+	public Book retrieveBook(Integer bookId) throws BookNotFoundException;
+
+	// Update
+	public String updateBook(Book book);
+
+	// Delete
+	public String delete(Integer bookId) throws BookNotFoundException;
+
+	// Retrieve All
+	public List<Book> retrieveBooks();
+
+	// Retrieve By bookName
+	public Book retrieveBookByName(String bookName) throws BookNotFoundException;
+
+	// Retrieve By author
+	public Book retrieveBookByAuthor(String author) throws BookNotFoundException;
+}

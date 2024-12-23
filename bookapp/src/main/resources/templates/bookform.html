@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Book Form</title>
+</head>
+<body>
+
+<!-- we use *  to POST data and  $ to GET data i.e. *{varName} & i${varName}  -->
+	<form action="#" th:action="@{/addbook}" th:object="${book}" method="post">
+		<p>Enter the book id  : <input type="text" th:field="*{bookId}"/></p>
+		<p>Enter the book name  : <input type="text" th:field="*{bookName}"/></p>
+		<p>Enter the book author  : <input type="text" th:field="*{author}"/></p>
+		<p>Enter the book price  : <input type="text" th:field="*{price}"/></p>
+		<p><input type="submit" value="Submit"/></p>
+	</form>
+	
+</body>
+</html>
