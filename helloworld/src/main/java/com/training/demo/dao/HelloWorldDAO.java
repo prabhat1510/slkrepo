@@ -1,10 +1,10 @@
-package com.training.demo.service;
+package com.training.demo.dao;
 
 import com.training.demo.model.Message;
 
-public interface HelloWorldService {
-	
+public interface HelloWorldDAO {
+
 	public String getHelloMessage();
-	
 	public String addMessage(Message message);
+
 }
