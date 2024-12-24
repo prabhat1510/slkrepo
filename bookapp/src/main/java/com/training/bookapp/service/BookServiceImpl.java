@@ -44,14 +44,13 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public Book retrieveBookByName(String bookName) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return bookRepo.retrieveBookByName(bookName);
 	}
 
 	@Override
-	public Book retrieveBookByAuthor(String author) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book>  retrieveBookByAuthor(String author) throws BookNotFoundException {
+		return bookRepo.retrieveBookByAuthor(author);
 	}
 
 }

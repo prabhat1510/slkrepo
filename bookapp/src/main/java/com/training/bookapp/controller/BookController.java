@@ -1,5 +1,7 @@
 package com.training.bookapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,26 +18,27 @@ import com.training.bookapp.service.BookService;
 public class BookController {
 	@Autowired
 	private BookService service;
-	//Get book form
+
+	// Get book form
 	@GetMapping("/bookform")
-	public ModelAndView getBookForm(@ModelAttribute Book book){
+	public ModelAndView getBookForm(@ModelAttribute Book book) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("bookform");
 		return mv;
 	}
-	
-	//Create
+
+	// Create
 	@PostMapping("/addbook")
-	public ModelAndView createBook(@ModelAttribute Book book){
+	public ModelAndView createBook(@ModelAttribute Book book) {
 		String message = service.createBook(book);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("successmsg","Book added successfully");
+		mv.addObject("successmsg", "Book added successfully");
 		mv.setViewName("success");
 		return mv;
 	}
-	
-	// Retrieve by primary key or by bookId 
-	//URL -- http://localhost:8080/getbookbyid/1
+
+	// Retrieve by primary key or by bookId
+	// URL -- http://localhost:8080/getbookbyid/1
 	@GetMapping("/getbookbyid/{bookId}")
 	public ModelAndView retrieveBook(@PathVariable("bookId") Integer bookId) {
 		ModelAndView mv = null;
@@ -49,8 +52,26 @@ public class BookController {
 			mv.addObject("errormsg", e.getMessage());
 			mv.setViewName("error");
 		}
-		
-		
+
+		return mv;
+	}
+
+	// Retrieve by author
+	// URL -- http://localhost:8080/bookbyauthor/Prabhat
+	@GetMapping("/bookbyauthor/{author}")
+	public ModelAndView retrieveBookByAuthor(@PathVariable("author") String author) {
+		ModelAndView mv = null;
+		List<Book> listOfBook;
+		try {
+			listOfBook = service.retrieveBookByAuthor(author);
+			mv = new ModelAndView();
+			mv.addObject("listOfBook", listOfBook);
+			mv.setViewName("booksuccesslist");
+		} catch (BookNotFoundException e) {
+			mv.addObject("errormsg", e.getMessage());
+			mv.setViewName("error");
+		}
+
 		return mv;
 	}
 }

@@ -25,5 +25,5 @@ public interface BookRepository {
 	public Book retrieveBookByName(String bookName) throws BookNotFoundException;
 
 	// Retrieve By author
-	public Book retrieveBookByAuthor(String author) throws BookNotFoundException;
+	public List<Book>  retrieveBookByAuthor(String author) throws BookNotFoundException;
 }

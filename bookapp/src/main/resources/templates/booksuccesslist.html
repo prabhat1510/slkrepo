@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Customer Details Page </title>
+</head>
+<body>
+	<div>
+		<table>
+		<tr>
+			<th>Book Id </th>
+			<th>Book Name </th>
+			<th>Author </th>
+			<th>Price </th>
+		</tr>
+		<tr th:each="book : ${listOfBook}">
+			<td th:text="${book.bookId}"></td>
+			<td th:text="${book.bookName}"></td>
+			<td th:text="${book.author}"></td>
+			<td th:text="${book.price}"></td>
+		</tr>
+		</table>
+		
+	</div>
+</body>
+</html>

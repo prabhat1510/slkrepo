@@ -54,14 +54,24 @@ public class BookRepositoryImpl implements BookRepository{
 
 	@Override
 	public Book retrieveBookByName(String bookName) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		String sqlQuery="select * from book where bookName=?";
+		Book book = jdbcTemplate.queryForObject(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class),bookName);
+		if(book != null) {
+			return book;
+		}else {
+			throw new BookNotFoundException("Book with bookName "+bookName+" not found ");
+		}
 	}
 
 	@Override
-	public Book retrieveBookByAuthor(String author) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book> retrieveBookByAuthor(String author) throws BookNotFoundException {
+		String sqlQuery="select * from book where author=?";
+		List<Book> listOfBook = jdbcTemplate.query(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class),author);
+		if(listOfBook != null) {
+			return listOfBook;
+		}else {
+			throw new BookNotFoundException("Books with author "+author+" not found ");
+		}
 	}
 
 }
