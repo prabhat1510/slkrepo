@@ -1,7 +1,10 @@
 package com.training.bookrestapi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,12 +47,49 @@ public class BookController {
 		Book book;
 		try {
 			book = bookService.retrieveBook(bookId);
-			return new ResponseEntity(book,HttpStatus.FOUND);
+			return new ResponseEntity(book, HttpStatus.FOUND);
 		} catch (BookNotFoundException e) {
-			return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		
-		
+
 	}
 
+	// Retrieve by bookName
+	@GetMapping("/book/name/{bookName}")
+	public ResponseEntity retrieveBookByName(@PathVariable("bookName") String bookName) {
+		Book book;
+		try {
+			book = bookService.retrieveBookByName(bookName);
+			return new ResponseEntity(book, HttpStatus.FOUND);
+		} catch (BookNotFoundException e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+
+	}
+
+	// Retrieve by author
+	@GetMapping("/book/author/{author}")
+	public ResponseEntity retrieveBookByAuthor(@PathVariable("author") String author) {
+		List<Book> listOfBook;
+		try {
+			listOfBook = bookService.retrieveBookByAuthor(author);
+			return new ResponseEntity(listOfBook, HttpStatus.FOUND);
+		} catch (BookNotFoundException e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+
+	}
+	
+	//Retrieve All Books
+	@GetMapping("/book/books")
+	public ResponseEntity retrieveBooks() {
+		List<Book> books;
+		try {
+			books = bookService.retrieveBooks();
+			return new ResponseEntity(books,HttpStatus.OK);
+		} catch (BookNotFoundException e) {
+			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+		
+	}
 }

@@ -70,10 +70,14 @@ public class BookRepositoryImpl implements BookRepository {
 	@Override
 	public Book retrieveBookByName(String bookName) throws BookNotFoundException {
 		String sqlQuery = "select * from book where bookName=?";
-		Book book = jdbcTemplate.queryForObject(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class), bookName);
-		if (book != null) {
-			return book;
-		} else {
+		try {
+			Book book = jdbcTemplate.queryForObject(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class), bookName);
+			if (book != null) {
+				return book;
+			} else {
+				throw new BookNotFoundException("Book with bookName " + bookName + " not found ");
+			}
+		} catch (DataAccessException e) {
 			throw new BookNotFoundException("Book with bookName " + bookName + " not found ");
 		}
 	}
@@ -81,11 +85,15 @@ public class BookRepositoryImpl implements BookRepository {
 	@Override
 	public List<Book> retrieveBookByAuthor(String author) throws BookNotFoundException {
 		String sqlQuery = "select * from book where author=?";
-		List<Book> listOfBook = jdbcTemplate.query(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class), author);
-		if (listOfBook != null) {
-			return listOfBook;
-		} else {
-			throw new BookNotFoundException("Books with author " + author + " not found ");
+		try {
+			List<Book> listOfBook = jdbcTemplate.query(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class), author);
+			if (listOfBook != null) {
+				return listOfBook;
+			} else {
+				throw new BookNotFoundException("Books with author " + author + " not found ");
+			}
+		} catch (DataAccessException e) {
+			throw new BookNotFoundException("Book with author " + author + " not found ");
 		}
 	}
 
