@@ -42,14 +42,24 @@ public class BookRepositoryImpl implements BookRepository{
 
 	@Override
 	public String delete(Integer bookId) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		String sqlQuery="delete from book where bookId=?";
+		int row = jdbcTemplate.update(sqlQuery,bookId);
+		if(row > 0 ) {
+			return "Book with bookId "+bookId+" deleted successfully";
+		}else {
+			throw new BookNotFoundException("Book with bookId "+bookId+" not found ");
+		}
 	}
 
 	@Override
-	public List<Book> retrieveBooks() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book> retrieveBooks() throws BookNotFoundException {
+		String sqlQuery="select * from book";
+		List<Book> listOfBook = jdbcTemplate.query(sqlQuery, BeanPropertyRowMapper.newInstance(Book.class));
+		if(listOfBook != null) {
+			return listOfBook;
+		}else {
+			throw new BookNotFoundException("Books not found ");
+		}
 	}
 
 	@Override

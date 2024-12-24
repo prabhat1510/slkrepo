@@ -19,7 +19,7 @@ public interface BookService {
 	public String delete(Integer bookId) throws BookNotFoundException;
 
 	// Retrieve All
-	public List<Book> retrieveBooks();
+	public List<Book> retrieveBooks() throws BookNotFoundException;
 
 	// Retrieve By bookName
 	public Book retrieveBookByName(String bookName) throws BookNotFoundException;

@@ -32,14 +32,12 @@ public class BookServiceImpl implements BookService{
 
 	@Override
 	public String delete(Integer bookId) throws BookNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
+		return bookRepo.delete(bookId);
 	}
 
 	@Override
-	public List<Book> retrieveBooks() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Book> retrieveBooks() throws BookNotFoundException {
+		return bookRepo.retrieveBooks();
 	}
 
 	@Override

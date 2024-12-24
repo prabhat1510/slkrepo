@@ -74,4 +74,61 @@ public class BookController {
 
 		return mv;
 	}
+
+	// Retrieve by bookName
+	// URL -- http://localhost:8080/bookbyname/Prabhat
+	@GetMapping("/bookbyname/{bookName}")
+	public ModelAndView retrieveBookByName(@PathVariable("bookName") String bookName) {
+		ModelAndView mv = null;
+		Book book;
+		try {
+			book = service.retrieveBookByName(bookName);
+			mv = new ModelAndView();
+			mv.addObject("book", book);
+			mv.setViewName("booksuccess");
+		} catch (BookNotFoundException e) {
+			mv.addObject("errormsg", e.getMessage());
+			mv.setViewName("error");
+		}
+
+		return mv;
+	}
+
+	// Retrieve all books
+	// URL -- http://localhost:8080/books
+	@GetMapping("/books")
+	public ModelAndView retrieveBooks() {
+		ModelAndView mv = null;
+		List<Book> listOfBooks;
+		try {
+			listOfBooks = service.retrieveBooks();
+			mv = new ModelAndView();
+			mv.addObject("listOfBook", listOfBooks);
+			mv.setViewName("booksuccesslist");
+		} catch (BookNotFoundException e) {
+			mv.addObject("errormsg", e.getMessage());
+			mv.setViewName("error");
+		}
+
+		return mv;
+	}
+
+	// Delete by primary key or by bookId
+	// URL -- http://localhost:8080/deletebookbyid/1
+	@GetMapping("/deletebookbyid/{bookId}")
+	public ModelAndView deleteBookById(@PathVariable("bookId") Integer bookId) {
+		ModelAndView mv = null;
+		String message;
+		try {
+			message = service.delete(bookId);
+			mv = new ModelAndView();
+			mv.addObject("successmsg", message);
+			mv.setViewName("success");
+		} catch (BookNotFoundException e) {
+			mv.addObject("errormsg", e.getMessage());
+			mv.setViewName("error");
+		}
+
+		return mv;
+	}
 }
