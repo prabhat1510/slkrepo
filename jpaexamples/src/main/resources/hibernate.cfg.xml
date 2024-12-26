@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+      "-//Hibernate/Hibernate Configuration DTD 5.3//EN"
+          "http://hibernate.sourceforge.net/hibernate-configuration-5.3.dtd">
+
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hbm2ddl.auto">update</property>
+		<property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/trainingdb</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">password</property>
+		<property name="show_sql">true</property>
+		<mapping class="jpaexamples.entities.Person"></mapping>
+
+	</session-factory>
+</hibernate-configuration>
