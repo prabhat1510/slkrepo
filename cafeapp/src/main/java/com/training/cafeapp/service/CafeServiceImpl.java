@@ -39,4 +39,37 @@ public class CafeServiceImpl implements CafeService {
 	
 	}
 
+
+	@Override
+	public Cafe getCafeByLocation(String location) throws CafeNotFoundException {
+		Optional<Cafe> cafe = cafeRepo.findByLocation(location);
+		if(cafe.isPresent()) {
+			return cafe.get();
+		}else {
+			throw new CafeNotFoundException("Cafe with cafe location "+location+" not found in our record");
+		}
+	}
+
+
+	@Override
+	public Cafe getCafeByName(String name) throws CafeNotFoundException {
+		Optional<Cafe> cafe = cafeRepo.findByCafeName(name);
+		if(cafe.isPresent()) {
+			return cafe.get();
+		}else {
+			throw new CafeNotFoundException("Cafe with cafe name "+name+" not found in our record");
+		}
+	}
+
+
+	@Override
+	public Cafe getCafeByManager(String manager) throws CafeNotFoundException {
+		Optional<Cafe> cafe = cafeRepo.findByManager(manager);
+		if(cafe.isPresent()) {
+			return cafe.get();
+		}else {
+			throw new CafeNotFoundException("Cafe with cafe manager "+manager+" not found in our record");
+		}
+	}
+
 }

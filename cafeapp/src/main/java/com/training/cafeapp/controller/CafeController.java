@@ -33,4 +33,21 @@ public class CafeController {
 		String message = cafeService.addNewCafe(cafe);
 		return new ResponseEntity<String>(message,HttpStatus.CREATED);
 	}
+	
+	@GetMapping("/cafe/bylocation")
+	public ResponseEntity<Cafe> getCafeByLocation(@RequestParam("location") String location) throws CafeNotFoundException{
+		Cafe cafe = cafeService.getCafeByLocation(location);
+		return new ResponseEntity<Cafe>(cafe,HttpStatus.FOUND);
+	}
+	
+	@GetMapping("/cafe/byname")
+	public ResponseEntity<Cafe> getCafeByName(@RequestParam("name") String name) throws CafeNotFoundException{
+		Cafe cafe = cafeService.getCafeByName(name);
+		return new ResponseEntity<Cafe>(cafe,HttpStatus.FOUND);
+	}
+	@GetMapping("/cafe/bymanager")
+	public ResponseEntity<Cafe> getCafeByManager(@RequestParam("manager") String manager) throws CafeNotFoundException{
+		Cafe cafe = cafeService.getCafeByManager(manager);
+		return new ResponseEntity<Cafe>(cafe,HttpStatus.FOUND);
+	}
 }

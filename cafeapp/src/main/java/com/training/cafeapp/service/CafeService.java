@@ -7,5 +7,9 @@ public interface CafeService {
 	
 	public String addNewCafe(Cafe cafe);
 	public Cafe getCafeById(Integer cafeId) throws CafeNotFoundException;
+	public Cafe getCafeByLocation(String location) throws CafeNotFoundException;
+	public Cafe getCafeByName(String name) throws CafeNotFoundException;
+	public Cafe getCafeByManager(String manager) throws CafeNotFoundException;
+	
 
 }
