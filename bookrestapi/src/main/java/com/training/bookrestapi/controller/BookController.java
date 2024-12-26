@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +17,13 @@ import com.training.bookrestapi.exceptions.BookNotFoundException;
 import com.training.bookrestapi.model.Book;
 import com.training.bookrestapi.service.BookService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
 @RestController
 @RequestMapping("/bookapi")
+@Tag(name="Book API")
 public class BookController {
 
 	@Autowired
@@ -31,6 +36,7 @@ public class BookController {
 
 	// Create a new book
 	// http://localhost:8080/bookapi/book/new
+	@Operation(summary="Creating a new book")
 	@PostMapping("/book/new")
 	public ResponseEntity<String> createBook(@RequestBody Book book) {
 		String msg = bookService.createBook(book);
@@ -42,6 +48,8 @@ public class BookController {
 	}
 
 	// Retrieve by primary key or by bookId
+	//@Tag(name="Get Book using book id ")
+	@Operation(summary = "Retrieve book by id - id is passed as parameter")
 	@GetMapping("/book/{bookId}")
 	public ResponseEntity retrieveBook(@PathVariable("bookId") Integer bookId) {
 		Book book;
@@ -53,6 +61,16 @@ public class BookController {
 		}
 
 	}
+
+	/**
+	 * // Retrieve by bookName @GetMapping("/book/name/{bookName}") public
+	 * ResponseEntity retrieveBookByName(@PathVariable("bookName") String bookName)
+	 * { Book book; try { book = bookService.retrieveBookByName(bookName); return
+	 * new ResponseEntity(book, HttpStatus.FOUND); } catch (BookNotFoundException e)
+	 * { return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND); }
+	 * 
+	 * }
+	 **/
 
 	// Retrieve by bookName
 	@GetMapping("/book/name/{bookName}")
@@ -69,27 +87,36 @@ public class BookController {
 
 	// Retrieve by author
 	@GetMapping("/book/author/{author}")
-	public ResponseEntity retrieveBookByAuthor(@PathVariable("author") String author) {
+	public ResponseEntity retrieveBookByAuthor(@PathVariable("author") String author) throws BookNotFoundException {
 		List<Book> listOfBook;
-		try {
-			listOfBook = bookService.retrieveBookByAuthor(author);
-			return new ResponseEntity(listOfBook, HttpStatus.FOUND);
-		} catch (BookNotFoundException e) {
-			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-		}
+		listOfBook = bookService.retrieveBookByAuthor(author);
+		return new ResponseEntity(listOfBook, HttpStatus.FOUND);
 
 	}
-	
-	//Retrieve All Books
+
+	// Retrieve All Books
 	@GetMapping("/book/books")
 	public ResponseEntity retrieveBooks() {
 		List<Book> books;
 		try {
 			books = bookService.retrieveBooks();
-			return new ResponseEntity(books,HttpStatus.OK);
+			return new ResponseEntity(books, HttpStatus.OK);
 		} catch (BookNotFoundException e) {
 			return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		
+
 	}
+
+	// Delete book by id
+	@DeleteMapping("/book/delete/{id}")
+	public ResponseEntity<String> deleteBookById(@PathVariable("id") Integer bookId) {
+		String msg;
+		try {
+			msg = bookService.delete(bookId);
+			return new ResponseEntity<String>(msg, HttpStatus.OK);
+		} catch (BookNotFoundException e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.OK);
+		}
+	}
+
 }
