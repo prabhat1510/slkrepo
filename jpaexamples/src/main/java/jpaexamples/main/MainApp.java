@@ -14,6 +14,8 @@ public class MainApp {
 		person.setPersonName("Bob");
 		personService.addPerson(person);*/
 		System.out.println(personService.getPersonById(2));
+		System.out.println(personService.getPersonByName("Bob"));
+		System.out.println(personService.getAllPerson());
 
 	}
 
