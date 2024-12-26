@@ -8,10 +8,12 @@ public class MainApp {
 
 	public static void main(String[] args) {
 		PersonService personService = new PersonServiceImpl();
+		/**
 		//Create a person
 		Person person = new Person();
-		person.setPersonName("John");
-		personService.addPerson(person);
+		person.setPersonName("Bob");
+		personService.addPerson(person);*/
+		System.out.println(personService.getPersonById(2));
 
 	}
 

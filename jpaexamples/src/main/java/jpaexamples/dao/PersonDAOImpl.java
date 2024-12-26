@@ -8,6 +8,11 @@ import jpaexamples.entities.Person;
 import jpaexamples.utility.HibernateUtility;
 
 public class PersonDAOImpl implements PersonDAO {
+	
+	public PersonDAOImpl() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private Session session = HibernateUtility.getSessionFactory().openSession();
 	public List<Person> getAllPerson() {
 		// TODO Auto-generated method stub
