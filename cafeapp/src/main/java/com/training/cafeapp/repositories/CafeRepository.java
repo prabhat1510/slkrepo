@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.training.cafeapp.entities.Cafe;
 
-@Repository
+//@Repository
 public interface CafeRepository extends CrudRepository<Cafe, Integer> {
 
 }

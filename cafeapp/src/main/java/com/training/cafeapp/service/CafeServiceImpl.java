@@ -20,7 +20,7 @@ public class CafeServiceImpl implements CafeService {
 	
 
 	public String addNewCafe(Cafe cafe) {
-		Cafe c=cafeRepo.save(cafe);
+		Cafe c = cafeRepo.save(cafe);
 		if(c.getCafeId() != 0) {
 			return "Cafe added successfully";
 		}else {

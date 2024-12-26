@@ -16,7 +16,7 @@ import lombok.ToString;
 @Entity
 public class Cafe {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer cafeId;
 	private String cafeName;
 	private String location;
