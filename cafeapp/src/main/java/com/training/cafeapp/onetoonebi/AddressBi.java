@@ -1,5 +1,7 @@
 package com.training.cafeapp.onetoonebi;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,5 +28,6 @@ public class AddressBi {
 	private String city;
 	private String state;
 	@OneToOne(mappedBy = "addressBi")
+	@JsonIgnore
 	private StudentBi studentBi; // inverse side
 }
