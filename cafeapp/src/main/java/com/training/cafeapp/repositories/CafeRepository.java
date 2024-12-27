@@ -2,13 +2,15 @@ package com.training.cafeapp.repositories;
 
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import com.training.cafeapp.entities.Cafe;
 
 @Repository
-public interface CafeRepository extends CrudRepository<Cafe, Integer> {
+//public interface CafeRepository extends CrudRepository<Cafe, Integer> {
+public interface CafeRepository extends JpaRepository<Cafe, Integer> {
 		
 	public Optional<Cafe> findByCafeName(String cafeName);
 	public Optional<Cafe> findByLocation(String location);
