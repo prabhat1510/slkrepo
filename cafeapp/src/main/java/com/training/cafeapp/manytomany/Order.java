@@ -3,8 +3,6 @@ package com.training.cafeapp.manytomany;
 import java.util.Date;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,7 +31,7 @@ import lombok.ToString;
 @ToString
 public class Order {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer orderId;
 	private Date orderDate;
 
@@ -44,7 +42,6 @@ public class Order {
 	 */
 	@JoinTable(name = "product_orders", joinColumns = { @JoinColumn(name = "orderId") }, inverseJoinColumns = {
 			@JoinColumn(name = "productId") })
-	@JsonIgnore
-	private Set<Product> products;
+	private Set<Product> products;//owning
 
 }
