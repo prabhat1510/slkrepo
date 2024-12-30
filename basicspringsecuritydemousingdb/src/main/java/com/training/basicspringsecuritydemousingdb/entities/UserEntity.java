@@ -22,7 +22,7 @@ import jakarta.validation.constraints.Size;
 		@UniqueConstraint(columnNames = "email") })
 public class UserEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@NotBlank
@@ -52,6 +52,24 @@ public class UserEntity {
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
+	
+	public UserEntity() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public UserEntity(Long id, @NotBlank @Size(max = 20) String username, @NotBlank @Size(max = 50) @Email String email,
+			@NotBlank @Size(max = 120) String password, @NotBlank @Size(max = 10) String mobile,
+			@NotBlank @Size(max = 220) String address, @NotBlank @Size(max = 11) String gender, Set<Role> roles) {
+		this.id = id;
+		this.username = username;
+		this.email = email;
+		this.password = password;
+		this.mobile = mobile;
+		this.address = address;
+		this.gender = gender;
+		this.roles = roles;
+	}
 
 	public UserEntity(String username, String email, String password) {
 		this.username = username;

@@ -2,12 +2,14 @@ spring:
   application:
     name: basicspringsecuritydemousingdb
   datasource:
-    url: jdbc:mysql://localhost:3306/securitydb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/securitydb123
     username: root
     password: password
   jpa:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
         ddl-auto: update
     show-sql: true
+

@@ -13,12 +13,24 @@ import jakarta.persistence.Table;
 @Table(name = "roles")
 public class Role {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
 	private ERole name;
+
+	
+	public Role() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public Role(Integer id, ERole name) {
+		this.id = id;
+		this.name = name;
+	}
+
 
 	public Integer getId() {
 		return id;
