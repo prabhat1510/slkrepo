@@ -18,7 +18,7 @@ import com.training.basicspringsecuritydemousingdb.service.UserDetailsServiceImp
 public class SecurityConfig {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
-	public final static String[] PUBLIC_REQUEST_MATCHERS = { "/api/auth/**"};
+	public final static String[] PUBLIC_REQUEST_MATCHERS = { "/api/auth/**","/swagger-ui/**","/v3/api-docs/**"};
 
 	
     @Bean
