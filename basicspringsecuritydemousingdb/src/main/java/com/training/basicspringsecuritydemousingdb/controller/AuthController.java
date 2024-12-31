@@ -22,8 +22,10 @@ import com.training.basicspringsecuritydemousingdb.entities.Role;
 import com.training.basicspringsecuritydemousingdb.entities.UserEntity;
 import com.training.basicspringsecuritydemousingdb.repositories.RoleRepository;
 import com.training.basicspringsecuritydemousingdb.repositories.UserRepository;
+import com.training.basicspringsecuritydemousingdb.security.jwt.JwtUtils;
 import com.training.basicspringsecuritydemousingdb.security.payload.request.LoginRequest;
 import com.training.basicspringsecuritydemousingdb.security.payload.request.SignupRequest;
+import com.training.basicspringsecuritydemousingdb.security.payload.response.JwtResponse;
 import com.training.basicspringsecuritydemousingdb.security.payload.response.MessageResponse;
 import com.training.basicspringsecuritydemousingdb.service.UserDetailsImpl;
 
@@ -45,7 +47,10 @@ public class AuthController {
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
-	@PostMapping("/signin") 
+	@Autowired
+	JwtUtils jwtUtils;
+	
+/**	@PostMapping("/signin") 
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), 
@@ -60,6 +65,27 @@ public class AuthController {
 				.collect(Collectors.toList());
 
 		return ResponseEntity.ok(new MessageResponse("User with username "+userDetails.getUsername()+" Logged in Successfully "));
+	}**/
+	@PostMapping("/signin")
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), 
+						loginRequest.getPassword()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		List<String> roles = userDetails.getAuthorities().stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(new JwtResponse(jwt, 
+												 userDetails.getId(), 
+												 userDetails.getUsername(), 
+												 userDetails.getEmail(), 
+												 roles));
 	}
 	 
 

@@ -5,13 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.training.basicspringsecuritydemousingdb.security.jwt.AuthEntryPointJwt;
+import com.training.basicspringsecuritydemousingdb.security.jwt.AuthTokenFilter;
 import com.training.basicspringsecuritydemousingdb.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -25,6 +28,14 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+    
+    @Autowired
+	private AuthEntryPointJwt unauthorizedHandler;
+
+	@Bean
+	public AuthTokenFilter authenticationJwtTokenFilter() {
+		return new AuthTokenFilter();
+	}
    
     @Bean
 	public DaoAuthenticationProvider authenticationProvider() {
@@ -47,11 +58,14 @@ public class SecurityConfig {
                // .anyRequest().authenticated()
             )
             // Enable HTTP Basic Authentication
-            .httpBasic(Customizer.withDefaults())
+            //.httpBasic(Customizer.withDefaults())
             // Disable CSRF for simplicity (not recommended for production)
-            .csrf(csrf -> csrf.disable());
-
-        return http.build();
+            .csrf(csrf -> csrf.disable())
+            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.authenticationProvider(authenticationProvider())
+			.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	        return http.build();
     }
 
 	/*
