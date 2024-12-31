@@ -1,10 +1,16 @@
 package com.training.basicspringsecuritydemousingdb.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,8 +22,10 @@ import com.training.basicspringsecuritydemousingdb.entities.Role;
 import com.training.basicspringsecuritydemousingdb.entities.UserEntity;
 import com.training.basicspringsecuritydemousingdb.repositories.RoleRepository;
 import com.training.basicspringsecuritydemousingdb.repositories.UserRepository;
+import com.training.basicspringsecuritydemousingdb.security.payload.request.LoginRequest;
 import com.training.basicspringsecuritydemousingdb.security.payload.request.SignupRequest;
 import com.training.basicspringsecuritydemousingdb.security.payload.response.MessageResponse;
+import com.training.basicspringsecuritydemousingdb.service.UserDetailsImpl;
 
 import jakarta.validation.Valid;
 
@@ -33,12 +41,27 @@ public class AuthController {
 	
 	@Autowired
 	private PasswordEncoder encoder;
-	/*
-	 * @PostMapping("/signin") public ResponseEntity<?>
-	 * authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-	 * 
-	 * }
-	 */
+	
+	@Autowired
+	AuthenticationManager authenticationManager;
+	
+	@PostMapping("/signin") 
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), 
+						loginRequest.getPassword()));
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		//String jwt = jwtUtils.generateJwtToken(authentication);
+		
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		List<String> roles = userDetails.getAuthorities().stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+
+		return ResponseEntity.ok(new MessageResponse("User with username "+userDetails.getUsername()+" Logged in Successfully "));
+	}
+	 
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
