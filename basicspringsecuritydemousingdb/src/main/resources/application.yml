@@ -2,7 +2,7 @@ spring:
   application:
     name: basicspringsecuritydemousingdb
   datasource:
-    url: jdbc:mysql://localhost:3306/securitydb123
+    url: jdbc:mysql://localhost:3306/securitydb
     username: root
     password: password
   jpa:

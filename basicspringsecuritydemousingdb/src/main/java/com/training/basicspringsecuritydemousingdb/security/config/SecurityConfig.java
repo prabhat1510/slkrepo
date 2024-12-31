@@ -18,7 +18,8 @@ import com.training.basicspringsecuritydemousingdb.service.UserDetailsServiceImp
 public class SecurityConfig {
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
-    
+	public final static String[] PUBLIC_REQUEST_MATCHERS = { "/api/auth/**"};
+
 	
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -42,6 +43,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
             	.requestMatchers("/greet").hasRole("USER")
             	.requestMatchers("/admingreet").hasRole("ADMIN")
+            	.requestMatchers(PUBLIC_REQUEST_MATCHERS).permitAll()
                // .anyRequest().authenticated()
             )
             // Enable HTTP Basic Authentication
