@@ -15,6 +15,26 @@ spring:
       - id: helloworld-service
         uri: lb://helloworld-service
         predicates:
-        - Path=/helloworld/**
+        - Path=/helloworld/v3/api-docs,/helloworld/**
         filters:
         - RewritePath=/helloworld/(?<path>.*), /$\{path}
+      - id: bookrestapi
+        uri: lb://bookrestapi
+        predicates:
+        - Path=/bookrestapi/**
+        filters:
+        - RewritePath=/bookrestapi/(?<path>.*), /$\{path}
+
+springdoc:
+  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+      - url: /helloworld/v3/api-docs
+        name: Hello World Service

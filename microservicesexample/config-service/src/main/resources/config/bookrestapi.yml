@@ -7,7 +7,7 @@ eureka:
       defaultZone: http://localhost:8061/eureka/
 spring: 
   datasource:
-    url: jdbc:mysql://localhost:3306/restsecureapidb?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/trainingdb?createDatabaseIfNotExist=true
     username: root
     password: password
   jpa:
