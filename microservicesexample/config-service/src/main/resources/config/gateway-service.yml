@@ -15,13 +15,13 @@ spring:
       - id: helloworld-service
         uri: lb://helloworld-service
         predicates:
-        - Path=/helloworld/v3/api-docs,/helloworld/**
+        - Path=/helloworld/**
         filters:
         - RewritePath=/helloworld/(?<path>.*), /$\{path}
       - id: bookrestapi
         uri: lb://bookrestapi
         predicates:
-        - Path=/helloworld/v3/api-docs,/bookrestapi/**
+        - Path=/bookrestapi/**
         filters:
         - RewritePath=/bookrestapi/(?<path>.*), /$\{path}
 
@@ -36,7 +36,7 @@ springdoc:
     urls:
       - url: /v3/api-docs
         name: API Gateway Service
-      - url: /helloworld-service/v3/api-docs
+      - url: /helloworld/v3/api-docs
         name: Hello World Service
-      - url: /bookrestapi-service/v3/api-docs
+      - url: /bookrestapi/v3/api-docs
         name: Book Rest API Service
