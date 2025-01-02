@@ -1,5 +1,6 @@
 server:
   port: 0
+  forward-headers-strategy: framework
 
 eureka:
   client:
@@ -17,3 +18,12 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+application-description : BookRest API App
+application-version : 1.0.0
+app.title : Book API For SLK Software
+app.license : Open Source- Free me  hai le lo 
+springdoc:
+  api-docs:
+    path: /bookrestapi-service/v3/api-docs
+  swagger-ui:
+    path: /bookrestapi-service/swagger-ui.html
