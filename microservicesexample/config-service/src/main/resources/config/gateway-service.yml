@@ -24,6 +24,12 @@ spring:
         - Path=/bookrestapi/**
         filters:
         - RewritePath=/bookrestapi/(?<path>.*), /$\{path}
+      - id: auth-service
+        uri: lb://auth-service
+        predicates:
+        - Path=/auth-service/**
+        filters:
+        - RewritePath=/auth-service/(?<path>.*), /$\{path}
 
 springdoc:
   enable-native-support: true
@@ -40,3 +46,5 @@ springdoc:
         name: Hello World Service
       - url: /bookrestapi/v3/api-docs
         name: Book Rest API Service
+      - url: /auth-service/v3/api-docs
+        name: Auth Service
