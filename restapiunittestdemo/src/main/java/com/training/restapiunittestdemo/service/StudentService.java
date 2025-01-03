@@ -9,7 +9,7 @@ public interface StudentService {
 	public Student addNewStudent(Student student);
 	//Retrieve
 	public Student getStudentById(Integer studentId) throws StudentNotFoundException;
-	//Delete
+	//Delete 
 	public String deleteStudentById(Integer studentId) throws StudentNotFoundException;
 	//Update
 	public Student updateStudent(Student student);

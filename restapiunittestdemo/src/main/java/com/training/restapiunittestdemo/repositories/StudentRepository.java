@@ -7,5 +7,6 @@ import com.training.restapiunittestdemo.entities.Student;
 
 @Repository
 public interface StudentRepository extends CrudRepository<Student, Integer> {
-
+	
+	public Student findByStudentName(String studentName);
 }
