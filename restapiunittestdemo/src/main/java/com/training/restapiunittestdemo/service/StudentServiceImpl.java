@@ -15,8 +15,7 @@ public class StudentServiceImpl implements StudentService {
 	private StudentRepository repo;
 	@Override
 	public Student addNewStudent(Student student) {
-		// TODO Auto-generated method stub
-		return null;
+		return repo.save(student);
 	}
 
 	@Override

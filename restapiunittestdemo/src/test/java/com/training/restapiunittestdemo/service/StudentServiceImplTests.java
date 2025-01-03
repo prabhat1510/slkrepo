@@ -36,4 +36,15 @@ public class StudentServiceImplTests {
 	void testGetStudentThrowingException() {
 		assertThatThrownBy(()->service.getStudentById(21)).isInstanceOf(StudentNotFoundException.class);
 	}
+	
+	@Test
+	void testAddNewStudent() {
+		Student newStudent = new Student(3,"Rohan");
+		Student savedStudent = service.addNewStudent(newStudent);
+		assertNotNull(savedStudent);
+		assertTrue(savedStudent.getStudentName().equals(newStudent.getStudentName()));
+		assertTrue(savedStudent.getStudentId() == newStudent.getStudentId());
+	}
+	
+	
 }
