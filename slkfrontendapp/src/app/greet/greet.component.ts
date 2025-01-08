@@ -14,7 +14,7 @@ export class GreetComponent implements OnInit{
   ngOnInit(): void {
     this.getData();
   }
-  async getData() {
+  /**async getData() {
     try {
       const tokenStr=localStorage.getItem("accessToken");
       const response = await axios.get('http://localhost:8080/greet',{ headers: {"Authorization" : `Bearer ${tokenStr}`} });
@@ -23,5 +23,16 @@ export class GreetComponent implements OnInit{
     } catch (error) {
       console.error('Error fetching data:', error);
     }
-  }
+  }**/
+ getData(){
+  const tokenStr=localStorage.getItem("accessToken");
+  axios.get('http://localhost:8080/greet',{ headers: {"Authorization" : `Bearer ${tokenStr}`} })
+  .then((response)=> {
+    this.data = response.data;
+    console.log(this.data);
+  })
+  .catch((error)=> {
+      console.log(error);
+  });
+ }
 }
