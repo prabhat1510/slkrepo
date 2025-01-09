@@ -25,8 +25,8 @@ public class SwaggerOpenApiConfig {
 		return new OpenAPI()
 				// defining security scheme
 				.components(new Components().addSecuritySchemes(securitySchemeName,
-						//new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
-						new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
+						new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
+						//new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("basic")))
 				// setting global security
 				.security(List.of(new SecurityRequirement().addList(securitySchemeName)))
 				.info(new Info().title("SpringBoot API").description("Spring JWT Security application")

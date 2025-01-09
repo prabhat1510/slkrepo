@@ -65,8 +65,9 @@ public class SecurityConfig {
             	.requestMatchers("/api/customer/new").hasRole("ADMIN")
             	.requestMatchers("/api/customer/get/**").permitAll()
             	.requestMatchers("/api/customer/customers").hasAnyRole("USER","ADMIN")
+            	//.requestMatchers("/api/customer/**").permitAll()
             	.requestMatchers(PUBLIC_REQUEST_MATCHERS).permitAll()
-               // .anyRequest().authenticated()
+               //.anyRequest().authenticated()
             )
             // Enable HTTP Basic Authentication
             //.httpBasic(Customizer.withDefaults())

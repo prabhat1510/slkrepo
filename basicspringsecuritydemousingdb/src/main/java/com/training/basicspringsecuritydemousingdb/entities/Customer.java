@@ -12,8 +12,8 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer customerId;
-	private String fName;
-	private String lName;
+	private String firstName;
+	private String lastName;
 	private String email;
 	public Integer getCustomerId() {
 		return customerId;
@@ -21,17 +21,18 @@ public class Customer {
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
 	}
-	public String getfName() {
-		return fName;
+	
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setfName(String fName) {
-		this.fName = fName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public String getlName() {
-		return lName;
+	public String getLastName() {
+		return lastName;
 	}
-	public void setlName(String lName) {
-		this.lName = lName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	public String getEmail() {
 		return email;
