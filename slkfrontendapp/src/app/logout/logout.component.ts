@@ -8,10 +8,14 @@ export class LogoutComponent implements OnInit{
 
   constructor() { }
   
-  ngOnInit(): void {}
-  logout() {
-      localStorage.removeItem("accessToken");
-        
+  ngOnInit(): void {
+    localStorage.removeItem("accessToken");
+      localStorage.removeItem("roles");
   }
+  /**logout() {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("roles");
+        
+  }*/
   
 }

@@ -1,0 +1,22 @@
+<p>customerlist works!</p>
+<h2>Customer List</h2>
+<table border="1">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data">
+        <td>{{ item.customerId  }}</td>
+        <td>{{ item.firstName }}</td>
+        <td>{{ item.lastName }}</td>
+        <td>{{ item.email }}</td>
+        <td>Show Edit Delete</td>
+      </tr>
+    </tbody>
+  </table>

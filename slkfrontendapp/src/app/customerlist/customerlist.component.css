@@ -1,0 +1,19 @@
+/* src/app/item-table/item-table.component.css */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}

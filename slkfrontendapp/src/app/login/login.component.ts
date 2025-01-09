@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit{
   loginForm !: FormGroup;
-  //router:Router;
+
   constructor(private fb: FormBuilder,private router: Router) {
   }
 
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit{
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+   
   }
 
   onSubmit() {
@@ -27,14 +28,15 @@ export class LoginComponent implements OnInit{
       console.log(this.loginForm.value);
       axios.post('http://localhost:8080/api/auth/signin',this.loginForm.value)
     .then(function (response) {
-      console.log(response.data.username);  
-      console.log(response.data.accessToken );
+      console.log(response.data.roles);
       localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("roles",response.data.roles);
     })
     .catch(function (error) {
         console.log(error);
     });
     }
-    this.router.navigate(["/greet"]);
+    //console.log(this.responseData);
+    this.router.navigate(["/custhome"]);
   }
 }

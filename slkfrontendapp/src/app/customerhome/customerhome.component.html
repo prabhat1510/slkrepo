@@ -1,0 +1,20 @@
+<!-- <app-customerlist (dataFromChild)="handleDataFromChild($event)"></app-customerlist> -->
+<div>
+<div>
+<h2>Customr Home Component</h2>
+
+<nav>
+  <ul>
+    <li><a routerLink="/custform">Create new customer</a></li>
+  </ul>
+  <div *ngIf="showComponent">
+    <app-customerlist></app-customerlist>
+  </div>
+  
+ 
+</nav>
+</div>
+<div>
+    <a routerLink="/logout">Logout</a>
+</div>
+</div>

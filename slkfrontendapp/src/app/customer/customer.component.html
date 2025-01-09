@@ -1,0 +1,25 @@
+<div>
+<div class="container">
+    <h2>Customer Form</h2>
+    <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName">First Name :</label>
+        <input type="text" id="firstName" formControlName="firstName" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" formControlName="lastName" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email :</label>
+        <input type="email" id="email" formControlName="email" required>
+      </div>
+  
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  <div>
+  <a routerLink="/logout" >Logout</a>
+</div>
+</div>
